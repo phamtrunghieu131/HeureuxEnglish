@@ -3,8 +3,12 @@ package com.example.heureuxenglish;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -13,11 +17,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class NewWordActivity extends AppCompatActivity {
 
     TextView newWordText,translateText,englishExText,vietnameseExText;
+    Button mButton;
+    User user;
+    Word word;
+    ArrayList<Word> learnedWords = new ArrayList<Word>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +35,30 @@ public class NewWordActivity extends AppCompatActivity {
         creat();
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("learnedWords")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            learnedWords.clear();
+                            for(DataSnapshot postSnapshot : snapshot.getChildren()){
+                                Word word = postSnapshot.getValue(Word.class);
+                                learnedWords.add(word);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .getValue(User.class);
-                int size = user.getLearnedWords().size();
-                Word word = snapshot.child("word").child(size+"").getValue(Word.class);
+                word = snapshot.child("word").child(learnedWords.size()+"").getValue(Word.class);
                 newWordText.setText(word.getWordInEnglish());
                 translateText.setText(word.getWordInVietnamese());
                 englishExText.setText(word.getExampleInEnglish());
@@ -45,6 +71,15 @@ public class NewWordActivity extends AppCompatActivity {
             }
         });
 
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(NewWordActivity.this,QuestionActivity.class);
+               intent.putExtra("count",learnedWords.size());
+               startActivity(intent);
+
+            }
+        });
     }
 
     private void creat() {
@@ -52,5 +87,6 @@ public class NewWordActivity extends AppCompatActivity {
         translateText = findViewById(R.id.textView4);
         englishExText = findViewById(R.id.textView6);
         vietnameseExText = findViewById(R.id.vietnameseExample);
+        mButton = findViewById(R.id.continue_button);
     }
 }

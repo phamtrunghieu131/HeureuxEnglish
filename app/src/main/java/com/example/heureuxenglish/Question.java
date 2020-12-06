@@ -1,12 +1,13 @@
 package com.example.heureuxenglish;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
 public class Question {
     private String question;
-    private ArrayList<Answer> listAnswer;
+    private ArrayList<Answer> listAnswer = new ArrayList<Answer>();
 
     public Question() {
     }

@@ -11,6 +11,11 @@ import androidx.annotation.Nullable;
 import android.app.Fragment;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 public class FragmentHomePage extends Fragment {
 
     TextView learnWordText;
@@ -29,8 +34,6 @@ public class FragmentHomePage extends Fragment {
                 startActivity(intent);
             }
         });
-
-
 
         return view;
     }
