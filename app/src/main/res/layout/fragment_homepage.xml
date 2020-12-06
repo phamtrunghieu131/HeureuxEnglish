@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/dark_blue">
+
+        <ProgressBar
+            android:id="@+id/progess_bar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:progressTint="@color/dark_blue"
+            android:secondaryProgressTint="@color/light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/hoc_tu_moi"
+                android:layout_width="365dp"
+                android:layout_height="200dp"
+                android:background="@drawable/hoc_tu_moi"
+                android:clickable="true"
+                android:isScrollContainer="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/hoc_tu_moi_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginRight="70dp"
+                android:isScrollContainer="false"
+                android:text="Học từ mới "
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/hoc_tu_moi"
+                app:layout_constraintHorizontal_bias="0.692"
+                app:layout_constraintStart_toStartOf="@+id/hoc_tu_moi"
+                app:layout_constraintTop_toTopOf="@+id/hoc_tu_moi" />
+
+            <ImageView
+                android:id="@+id/on_tap"
+                android:layout_width="365dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/on_tap"
+                android:isScrollContainer="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hoc_tu_moi"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/on_tap_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginRight="70dp"
+                android:isScrollContainer="false"
+                android:text="Ôn tập "
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/on_tap"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="@+id/on_tap"
+                app:layout_constraintTop_toBottomOf="@+id/hoc_tu_moi" />
+
+            <ImageView
+                android:id="@+id/muc_tieu"
+                android:layout_width="365dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/muc_tieu"
+                android:clickable="true"
+                android:isScrollContainer="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/on_tap"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/muc_tieu_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginRight="70dp"
+                android:isScrollContainer="false"
+                android:text="Mục tiêu "
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/muc_tieu"
+                app:layout_constraintStart_toStartOf="@+id/muc_tieu"
+                app:layout_constraintTop_toBottomOf="@+id/on_tap" />
+
+            <TextView
+                android:id="@+id/muc_tieu_hien_tai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" từ/ngày"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/muc_tieu_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/muc_tieu_text_view" />
+
+            <ImageView
+                android:id="@+id/thong_bao"
+                android:layout_width="365dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/dat_lich"
+                android:isScrollContainer="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/muc_tieu"
+                tools:ignore="MissingConstraints" />
+
+            <CheckBox
+                android:id="@+id/thong_bao_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="130dp"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginRight="70dp"
+                android:button="@drawable/check_box"
+                android:isScrollContainer="false"
+                android:text="Thông báo "
+                android:textColor="#000000"
+                android:textSize="40sp"
+                android:textStyle="italic"
+                app:buttonTint="@color/green"
+                app:layout_constraintEnd_toEndOf="@+id/thong_bao"
+                app:layout_constraintStart_toStartOf="@+id/thong_bao"
+                app:layout_constraintTop_toBottomOf="@+id/muc_tieu" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</LinearLayout>
