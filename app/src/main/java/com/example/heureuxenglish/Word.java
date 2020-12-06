@@ -5,17 +5,20 @@ import java.util.ArrayList;
 public class Word {
     private String wordInEnglish;
     private String wordInVietnamese;
-    private ArrayList<Question> questions;
+    private Question mcQuestion;
     private String exampleInEnglish;
     private String exampleInVietnamese;
 
     public Word(){
     }
 
-    public Word(String wordInEnglish, String wordInVietnamese, ArrayList<Question> questions) {
+    public Word(String wordInEnglish, String wordInVietnamese, Question mcQuestion,
+                String exampleInEnglish, String exampleInVietnamese) {
         this.wordInEnglish = wordInEnglish;
         this.wordInVietnamese = wordInVietnamese;
-        this.questions = questions;
+        this.mcQuestion = mcQuestion;
+        this.exampleInEnglish = exampleInEnglish;
+        this.exampleInVietnamese = exampleInVietnamese;
     }
 
     public String getWordInEnglish() {
@@ -34,12 +37,12 @@ public class Word {
         this.wordInVietnamese = wordInVietnamese;
     }
 
-    public ArrayList<Question> getQuestions() {
-        return questions;
+    public Question getMcQuestion() {
+        return mcQuestion;
     }
 
-    public void setQuestions(ArrayList<Question> questions) {
-        this.questions = questions;
+    public void setMcQuestion(Question mcQuestion) {
+        this.mcQuestion = mcQuestion;
     }
 
     public String getExampleInEnglish() {

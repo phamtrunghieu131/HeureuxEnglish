@@ -4,21 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".FragmentHomePage"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
         android:background="@color/dark_blue">
+        <TextView
+            android:id="@+id/chi_tieu_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="10dp"
+            android:text="Chỉ tiêu hôm nay:"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="10dp"
+            android:text="5/15"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@id/chi_tieu_text_view"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <ProgressBar
             android:id="@+id/progess_bar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:progressTint="@color/dark_blue"
-            android:secondaryProgressTint="@color/light_blue"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="40dp"
+            android:progress="50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +61,7 @@
                 android:id="@+id/hoc_tu_moi"
                 android:layout_width="365dp"
                 android:layout_height="200dp"
-                android:background="@drawable/hoc_tu_moi"
+                android:background="@drawable/card_1"
                 android:clickable="true"
                 android:isScrollContainer="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -48,27 +73,34 @@
                 android:id="@+id/hoc_tu_moi_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="70dp"
-                android:layout_marginRight="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:isScrollContainer="false"
                 android:text="Học từ mới "
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/hoc_tu_moi"
-                app:layout_constraintHorizontal_bias="0.692"
+                android:textColor="@color/white"
+                android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="@+id/hoc_tu_moi"
                 app:layout_constraintTop_toTopOf="@+id/hoc_tu_moi" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Mở rộng vốn từ "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/hoc_tu_moi"
+                app:layout_constraintTop_toBottomOf="@+id/hoc_tu_moi_text_view" />
+            />
 
             <ImageView
                 android:id="@+id/on_tap"
                 android:layout_width="365dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/on_tap"
+                android:background="@drawable/card_2"
                 android:isScrollContainer="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,27 +111,34 @@
                 android:id="@+id/on_tap_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="70dp"
-                android:layout_marginRight="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:isScrollContainer="false"
-                android:text="Ôn tập "
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/on_tap"
-                app:layout_constraintHorizontal_bias="0.498"
+                android:text="Ôn tập"
+                android:textColor="@color/white"
+                android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="@+id/on_tap"
                 app:layout_constraintTop_toBottomOf="@+id/hoc_tu_moi" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Ôn lại từ đã học "
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/on_tap"
+                app:layout_constraintTop_toBottomOf="@+id/on_tap_text_view" />
+            />
 
             <ImageView
                 android:id="@+id/muc_tieu"
                 android:layout_width="365dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/muc_tieu"
+                android:background="@drawable/card_3"
                 android:clickable="true"
                 android:isScrollContainer="false"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -111,28 +150,33 @@
                 android:id="@+id/muc_tieu_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="70dp"
-                android:layout_marginRight="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:isScrollContainer="false"
-                android:text="Mục tiêu "
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/muc_tieu"
+                android:text="Mục tiêu"
+                android:textColor="@color/white"
+                android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="@+id/muc_tieu"
                 app:layout_constraintTop_toBottomOf="@+id/on_tap" />
-
             <TextView
                 android:id="@+id/muc_tieu_hien_tai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" từ/ngày"
-                android:textColor="#000000"
-                android:textSize="24sp"
+                android:text="5"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/muc_tieu_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/muc_tieu_text_view" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" từ/ngày"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/muc_tieu_hien_tai"
                 app:layout_constraintTop_toBottomOf="@+id/muc_tieu_text_view" />
 
             <ImageView
@@ -140,34 +184,38 @@
                 android:layout_width="365dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/dat_lich"
+                android:background="@drawable/card_4"
                 android:isScrollContainer="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/muc_tieu"
                 tools:ignore="MissingConstraints" />
 
-            <CheckBox
+            <TextView
                 android:id="@+id/thong_bao_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="70dp"
-                android:layout_marginRight="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:button="@drawable/check_box"
                 android:isScrollContainer="false"
-                android:text="Thông báo "
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="italic"
+                android:text="Thông báo"
+                android:textColor="@color/white"
+                android:textSize="30sp"
                 app:buttonTint="@color/green"
-                app:layout_constraintEnd_toEndOf="@+id/thong_bao"
                 app:layout_constraintStart_toStartOf="@+id/thong_bao"
                 app:layout_constraintTop_toBottomOf="@+id/muc_tieu" />
 
+            <Switch
+                android:id="@+id/thong_bao_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@+id/thong_bao_text_view"
+                app:layout_constraintTop_toBottomOf="@+id/thong_bao_text_view"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
 </LinearLayout>
