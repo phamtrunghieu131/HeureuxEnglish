@@ -19,10 +19,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class FragmentProfile extends Fragment {
     
     TextView learnedWordText,pointText,levelText,hardDayText,nameText;
     DatabaseReference mDatabase;
+    ArrayList<Word> words = new ArrayList<Word>();
 
     @Nullable
     @Override
@@ -36,12 +39,30 @@ public class FragmentProfile extends Fragment {
         nameText = view.findViewById(R.id.name);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("learnedWords")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            for(DataSnapshot postSnapshot : snapshot.getChildren()){
+                                Word word = postSnapshot.getValue(Word.class);
+                                words.add(word);
+                            }
+                        }
+                        learnedWordText.setText(words.size()+"");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         mDatabase.child("user").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(User.class);
                 nameText.setText(user.getName());
-                learnedWordText.setText(user.getLearnedWords().size()+"");
                 pointText.setText(user.getPoint()+"");
                 levelText.setText(user.getLevel()+"");
                 hardDayText.setText(user.getHardDay()+"");

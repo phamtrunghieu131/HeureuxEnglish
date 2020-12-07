@@ -10,7 +10,7 @@ public class User {
     private String email = "your email";    // default email
     private int level = 0;
     private int point = 0;
-    private ArrayList<Word> learnedWords = new ArrayList<Word>();
+    private int countLearnedWord = 0;
     private int hardDay = 0;
     private int wordToday = 0;
     private int target = 15;
@@ -63,14 +63,6 @@ public class User {
         this.point = point;
     }
 
-    public ArrayList<Word> getLearnedWords() {
-        return learnedWords;
-    }
-
-    public void setLearnedWords(ArrayList<Word> learnedWords) {
-        this.learnedWords = learnedWords;
-    }
-
     public int getHardDay() {
         return hardDay;
     }
@@ -93,5 +85,13 @@ public class User {
 
     public void setTarget(int target) {
         this.target = target;
+    }
+
+    public int getCountLearnedWord() {
+        return countLearnedWord;
+    }
+
+    public void setCountLearnedWord(int countLearnedWord) {
+        this.countLearnedWord = countLearnedWord;
     }
 }

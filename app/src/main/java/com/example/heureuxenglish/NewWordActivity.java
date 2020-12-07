@@ -24,9 +24,8 @@ public class NewWordActivity extends AppCompatActivity {
 
     TextView newWordText,translateText,englishExText,vietnameseExText;
     Button mButton;
-    User user;
     Word word;
-    ArrayList<Word> learnedWords = new ArrayList<Word>();
+    int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +35,11 @@ public class NewWordActivity extends AppCompatActivity {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("learnedWords")
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("countLearnedWord")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            learnedWords.clear();
-                            for(DataSnapshot postSnapshot : snapshot.getChildren()){
-                                Word word = postSnapshot.getValue(Word.class);
-                                learnedWords.add(word);
-                            }
-                        }
+                        count = snapshot.getValue(Integer.class);
                     }
 
                     @Override
@@ -58,7 +51,8 @@ public class NewWordActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                word = snapshot.child("word").child(learnedWords.size()+"").getValue(Word.class);
+
+                word = snapshot.child("word").child(count+"").getValue(Word.class);
                 newWordText.setText(word.getWordInEnglish());
                 translateText.setText(word.getWordInVietnamese());
                 englishExText.setText(word.getExampleInEnglish());
@@ -75,7 +69,7 @@ public class NewWordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                Intent intent = new Intent(NewWordActivity.this,QuestionActivity.class);
-               intent.putExtra("count",learnedWords.size());
+               intent.putExtra("count",count);
                startActivity(intent);
 
             }

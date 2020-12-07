@@ -10,9 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.app.Fragment;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -34,6 +39,8 @@ public class FragmentHomePage extends Fragment {
                 startActivity(intent);
             }
         });
+
+      //  FirebaseDatabase.getInstance().getReference("learnedWords").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue("hello");
 
         return view;
     }

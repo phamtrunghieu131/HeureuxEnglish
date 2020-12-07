@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView questionText,answer_1,answer_2,answer_3,answer_4;
-    User user;
-    Word word;
-    Question question;
     ArrayList<Answer> answers = new ArrayList<Answer>();
+    boolean pass = true;
+    int currentPoint;
+    int count;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +36,7 @@ public class QuestionActivity extends AppCompatActivity {
         creat();
 
         Intent intent = getIntent();
-        int count = intent.getIntExtra("count",10);
+        count = intent.getIntExtra("count",10);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("word").child(count+"").child("mcQuestion").child("listAnswer")
@@ -71,6 +75,24 @@ public class QuestionActivity extends AppCompatActivity {
 
             }
         });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("point")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        currentPoint = snapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        answer_1.setOnClickListener(this);
+        answer_2.setOnClickListener(this);
+        answer_3.setOnClickListener(this);
+        answer_4.setOnClickListener(this);
     }
 
     private void creat() {
@@ -79,5 +101,56 @@ public class QuestionActivity extends AppCompatActivity {
         answer_2 = findViewById(R.id.textView9);
         answer_3 = findViewById(R.id.answer_3);
         answer_4 = findViewById(R.id.answer_4);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.textView8:
+                checkAnswer(answer_1,answers.get(0));
+                break;
+            case R.id.textView9:
+                checkAnswer(answer_2,answers.get(1));
+                break;
+            case R.id.answer_3:
+                checkAnswer(answer_3,answers.get(2));
+                break;
+            case R.id.answer_4:
+                checkAnswer(answer_4,answers.get(3));
+                break;
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(QuestionActivity.this,QuestionTwoActivity.class);
+                intent.putExtra("pass",pass);
+                intent.putExtra("count",count);
+                startActivity(intent);
+            }
+        },800);
+    }
+
+    private void checkAnswer(TextView textAnswer, Answer answer) {
+        if(answer.isCorrect()){
+            textAnswer.setBackgroundResource(R.drawable.correct_answer_corner);
+            FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("point").setValue(currentPoint+10);
+        }
+        else {
+            textAnswer.setBackgroundResource(R.drawable.wrong_answer_corner);
+            if(answers.get(0).isCorrect()){
+                answer_1.setBackgroundResource(R.drawable.correct_answer_corner);
+            }
+            else if(answers.get(1).isCorrect()){
+                answer_2.setBackgroundResource(R.drawable.correct_answer_corner);
+            }
+            else if(answers.get(2).isCorrect()){
+                answer_3.setBackgroundResource(R.drawable.correct_answer_corner);
+            }
+            else if(answers.get(3).isCorrect()){
+                answer_4.setBackgroundResource(R.drawable.correct_answer_corner);
+            }
+            pass = false;
+        }
     }
 }

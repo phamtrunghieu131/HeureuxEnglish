@@ -13,6 +13,15 @@
         android:layout_height="60dp"
         android:background="#55C2C0"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Chọn đáp án đúng"
+            android:textSize="30sp"
+            android:textColor="@color/black">
+        </TextView>
     </RelativeLayout>
 
     <TextView
