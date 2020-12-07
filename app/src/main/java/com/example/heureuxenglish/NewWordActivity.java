@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class NewWordActivity extends AppCompatActivity {
 
     TextView newWordText,translateText,englishExText,vietnameseExText;
+    ProgressBar progressBar;
     Button mButton;
     Word word;
     int count;
@@ -32,6 +35,15 @@ public class NewWordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_word);
         creat();
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        },3000);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -82,5 +94,6 @@ public class NewWordActivity extends AppCompatActivity {
         englishExText = findViewById(R.id.textView6);
         vietnameseExText = findViewById(R.id.vietnameseExample);
         mButton = findViewById(R.id.continue_button);
+        progressBar = findViewById(R.id.progressBar2);
     }
 }
