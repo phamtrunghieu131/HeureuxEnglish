@@ -61,10 +61,15 @@ public class FragmentHomePage extends Fragment {
         practiceText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),QuestionActivity.class);
-                intent.putExtra("type",0);
-                intent.putExtra("count",random.nextInt(count));
-                startActivity(intent);
+                if(count != 0) {
+                    Intent intent = new Intent(getActivity(), QuestionActivity.class);
+                    intent.putExtra("type", 0);
+                    intent.putExtra("count", random.nextInt(count));
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getActivity(),"Chưa có từ nào để ôn tập\n       Hãy học từ mới!",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
