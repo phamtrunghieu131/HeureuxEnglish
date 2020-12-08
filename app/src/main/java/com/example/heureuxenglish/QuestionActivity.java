@@ -27,7 +27,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
     boolean pass = true;
     int currentPoint;
     int count;
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
 
         Intent intent = getIntent();
         count = intent.getIntExtra("count",10);
+        type = intent.getIntExtra("type",1);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("word").child(count+"").child("mcQuestion").child("listAnswer")
@@ -125,6 +126,7 @@ public class QuestionActivity extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(QuestionActivity.this,QuestionTwoActivity.class);
                 intent.putExtra("pass",pass);
                 intent.putExtra("count",count);
+                intent.putExtra("type",type);
                 startActivity(intent);
             }
         },800);

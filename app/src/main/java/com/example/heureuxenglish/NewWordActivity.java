@@ -38,12 +38,6 @@ public class NewWordActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-        },3000);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -69,6 +63,7 @@ public class NewWordActivity extends AppCompatActivity {
                 translateText.setText(word.getWordInVietnamese());
                 englishExText.setText(word.getExampleInEnglish());
                 vietnameseExText.setText(word.getExampleInVietnamese());
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -82,6 +77,7 @@ public class NewWordActivity extends AppCompatActivity {
             public void onClick(View v) {
                Intent intent = new Intent(NewWordActivity.this,QuestionActivity.class);
                intent.putExtra("count",count);
+               intent.putExtra("type",1);
                startActivity(intent);
 
             }

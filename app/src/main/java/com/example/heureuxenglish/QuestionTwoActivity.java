@@ -28,6 +28,7 @@ public class QuestionTwoActivity extends AppCompatActivity {
     boolean pass;
     int count;
     int currentPoint;
+    int type;
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -40,6 +41,7 @@ public class QuestionTwoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         pass = intent.getBooleanExtra("pass",true);
         count = intent.getIntExtra("count",10);
+        type = intent.getIntExtra("type",1);
 
         mDatabase.child("word").child(count+"").addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,10 +88,15 @@ public class QuestionTwoActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(QuestionTwoActivity.this,NotificationActivity.class);
-                        intent.putExtra("pass",pass);
-                        intent.putExtra("count",count);
-                        startActivity(intent);
+                        if(type == 1) {
+                            Intent intent = new Intent(QuestionTwoActivity.this, NotificationActivity.class);
+                            intent.putExtra("pass", pass);
+                            intent.putExtra("count", count);
+                            startActivity(intent);
+                        } else{
+                            Intent intent = new Intent(QuestionTwoActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 },800);
             }

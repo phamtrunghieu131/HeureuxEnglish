@@ -20,10 +20,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class FragmentHomePage extends Fragment {
 
-    TextView learnWordText;
+    TextView learnWordText,practiceText;
+    int count;
+    Random random = new Random();
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Nullable
     @Override
@@ -31,6 +35,20 @@ public class FragmentHomePage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_homepage,container,false);
 
         learnWordText = view.findViewById(R.id.hoc_tu_moi_text_view);
+        practiceText = view.findViewById(R.id.on_tap_text_view);
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("countLearnedWord")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        count = snapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         learnWordText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +58,15 @@ public class FragmentHomePage extends Fragment {
             }
         });
 
-      //  FirebaseDatabase.getInstance().getReference("learnedWords").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue("hello");
+        practiceText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),QuestionActivity.class);
+                intent.putExtra("type",0);
+                intent.putExtra("count",random.nextInt(count));
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

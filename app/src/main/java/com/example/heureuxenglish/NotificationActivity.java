@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +35,7 @@ public class NotificationActivity extends AppCompatActivity {
         count = intent.getIntExtra("count",10);
 
         if(pass){
+
             notificationText.setText("Chúc mừng bạn đã học được một từ mới");
             mbutton.setText("Tiếp tục học từ mới");
             newWordText.setVisibility(View.VISIBLE);
@@ -49,6 +51,8 @@ public class NotificationActivity extends AppCompatActivity {
 
                 }
             });
+            FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .child("countLearnedWord").setValue(count+1);
         }else {
             notificationText.setText("Bạn đã làm sai 1 số câu hỏi, bạn sẽ phải học lại từ này :((");
             mbutton.setText("Học lại");
