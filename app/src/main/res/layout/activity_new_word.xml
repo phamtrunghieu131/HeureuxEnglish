@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewWordActivity"
-    android:background="#EBEADD">
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#55C2C0"
+        android:background="@color/light_blue"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -19,48 +19,46 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Từ mới"
-            android:textColor="@color/black"
-            android:textSize="25sp">
-        </TextView>
+            android:textColor="@color/color_text_1"
+            android:textSize="30sp"
+            android:textStyle="bold"></TextView>
     </RelativeLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginLeft="148dp"
         android:layout_marginTop="76dp"
+        android:fontFamily="sans-serif"
         android:text="từ mới"
-        android:textColor="@color/black"
+        android:textColor="@color/color_text_1"
         android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
-    </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"></TextView>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginLeft="148dp"
         android:layout_marginTop="40dp"
-        android:text="DỊCH NGHĨA"
-        android:textSize="20sp"
+        android:text="Dịch nghĩa"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-    </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/textView"></TextView>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginLeft="148dp"
         android:layout_marginTop="8dp"
         android:text="nghĩa"
-        android:textColor="@color/black"
+        android:textColor="@color/color_text_1"
         android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
@@ -70,11 +68,11 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+
         android:layout_marginTop="72dp"
         android:text="Ví dụ:"
-
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -88,13 +86,13 @@
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="72dp"
+        android:gravity="center"
         android:text="this is an example"
-        android:textColor="@color/black"
+        android:textColor="@color/color_text_1"
         android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        android:gravity="center">
-    </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/textView4"></TextView>
 
     <TextView
         android:id="@+id/vietnameseExample"
@@ -103,35 +101,37 @@
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="Đây là một ví dụ"
-        android:textColor="@color/black"
+        android:textColor="@color/color_text_1"
         android:textSize="25sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        android:gravity="center">
-    </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/textView6"></TextView>
 
     <Button
         android:id="@+id/continue_button"
         android:layout_width="380sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:background="@drawable/button_background"
+        android:text="tiếp tục"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="TIẾP TỤC">
-    </Button>
+        app:layout_constraintStart_toStartOf="parent"></Button>
 
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginLeft="180dp"
         android:layout_marginTop="208dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

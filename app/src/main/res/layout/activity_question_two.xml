@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuestionTwoActivity"
-    android:background="#EBEADD">
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#55C2C0"
+        android:background="@color/light_blue"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -19,8 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Viết lại câu bằng tiếng anh"
+            android:textColor="@color/color_text_1"
             android:textSize="30sp"
-            android:textColor="@color/black"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <TextView
@@ -31,8 +32,9 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="132dp"
         android:text="Cau tieng anh"
-        android:textColor="@color/black"
+        android:textColor="@color/color_text_1"
         android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
@@ -44,12 +46,12 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="56dp"
 
-        android:textColor="@color/black"
+        android:hint="Hãy nhập gì đó......
+"
+        android:textColor="@color/color_text_1"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        android:hint="Hãy nhập gì đó......
-"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/resultText"
@@ -59,19 +61,21 @@
         android:layout_marginLeft="36dp"
         android:layout_marginTop="20dp"
         android:text="dap an"
-        android:textColor="#16E11E"
+        android:textColor="#3AE434"
         android:textSize="25sp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText">
-    </TextView>
+        app:layout_constraintTop_toBottomOf="@+id/editText"></TextView>
 
     <Button
         android:id="@+id/confirm_questionTwo_dsmButton"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="76dp"
+        android:background="@drawable/button_background"
         android:text="Xác nhận"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.524"

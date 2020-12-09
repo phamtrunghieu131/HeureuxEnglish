@@ -12,6 +12,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.heureuxenglish.QuestionActivity;
+import com.example.heureuxenglish.R;
+import com.example.heureuxenglish.Word;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -75,7 +78,7 @@ public class NewWordActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent = new Intent(NewWordActivity.this,QuestionActivity.class);
+               Intent intent = new Intent(NewWordActivity.this, QuestionActivity.class);
                intent.putExtra("count",count);
                intent.putExtra("type",1);
                startActivity(intent);
