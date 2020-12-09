@@ -21,7 +21,8 @@
             android:text="Từ mới"
             android:textColor="@color/color_text_1"
             android:textSize="30sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold">
+        </TextView>
     </RelativeLayout>
 
     <TextView
