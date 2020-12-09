@@ -27,11 +27,12 @@ import java.util.Random;
 
 public class FragmentHomePage extends Fragment {
 
-    TextView roofMaxTargetText,bottomMaxTargetText;
+    TextView roofMaxTargetText,bottomMaxTargetText,currentLearnedWordText;
     ImageView learnWordImg, practiceImg,targetImg;
     ProgressBar progressBar;
     int count;
     int target;
+    int hardDay;
     Random random = new Random();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -46,14 +47,27 @@ public class FragmentHomePage extends Fragment {
         roofMaxTargetText = view.findViewById(R.id.maxTarget_Text);
         bottomMaxTargetText = view.findViewById(R.id.muc_tieu_hien_tai);
         progressBar = view.findViewById(R.id.progess_bar);
+        currentLearnedWordText = view.findViewById(R.id.currentLearnedWord);
 
-        progressBar.setProgress(5);
 
         mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("countLearnedWord")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         count = snapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("hardDay")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        hardDay = snapshot.getValue(Integer.class);
                     }
 
                     @Override
@@ -70,6 +84,20 @@ public class FragmentHomePage extends Fragment {
                         roofMaxTargetText.setText("/ "+target);
                         bottomMaxTargetText.setText(target+"");
                         progressBar.setMax(target);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("wordToday")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int wordToday = snapshot.getValue(Integer.class);
+                        progressBar.setProgress(wordToday);
+                        currentLearnedWordText.setText(wordToday+"");
                     }
 
                     @Override
