@@ -1,5 +1,6 @@
 package com.example.heureuxenglish;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.app.Fragment;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +27,12 @@ import java.util.Random;
 
 public class FragmentHomePage extends Fragment {
 
-    ImageView learnWordImg, practiceImg;
+    TextView roofMaxTargetText,bottomMaxTargetText,currentLearnedWordText;
+    ImageView learnWordImg, practiceImg,targetImg;
+    ProgressBar progressBar;
     int count;
+    int target;
+    int hardDay;
     Random random = new Random();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -37,12 +43,61 @@ public class FragmentHomePage extends Fragment {
 
         learnWordImg = view.findViewById(R.id.hoc_tu_moi);
         practiceImg = view.findViewById(R.id.on_tap);
+        targetImg = view.findViewById(R.id.muc_tieu);
+        roofMaxTargetText = view.findViewById(R.id.maxTarget_Text);
+        bottomMaxTargetText = view.findViewById(R.id.muc_tieu_hien_tai);
+        progressBar = view.findViewById(R.id.progess_bar);
+        currentLearnedWordText = view.findViewById(R.id.currentLearnedWord);
+
 
         mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("countLearnedWord")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         count = snapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("hardDay")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        hardDay = snapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("target")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        target = snapshot.getValue(Integer.class);
+                        roofMaxTargetText.setText("/ "+target);
+                        bottomMaxTargetText.setText(target+"");
+                        progressBar.setMax(target);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("wordToday")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int wordToday = snapshot.getValue(Integer.class);
+                        progressBar.setProgress(wordToday);
+                        currentLearnedWordText.setText(wordToday+"");
                     }
 
                     @Override
@@ -71,6 +126,43 @@ public class FragmentHomePage extends Fragment {
                     Toast.makeText(getActivity(),"Chưa có từ nào để ôn tập\n       Hãy học từ mới!",Toast.LENGTH_SHORT).show();
                 }
 
+            }
+        });
+
+        targetImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.dialog_target);
+                TextView target1Text = dialog.findViewById(R.id.textView15);
+                TextView target2Text = dialog.findViewById(R.id.textView14);
+                TextView target3Text = dialog.findViewById(R.id.textView13);
+
+                target1Text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("target")
+                                .setValue(5);
+                        dialog.dismiss();
+                    }
+                });
+                target2Text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("target")
+                                .setValue(10);
+                        dialog.dismiss();
+                    }
+                });
+                target3Text.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("target")
+                                .setValue(15);
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
 

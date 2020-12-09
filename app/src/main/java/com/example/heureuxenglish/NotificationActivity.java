@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +23,10 @@ public class NotificationActivity extends AppCompatActivity {
     Button mbutton;
     boolean pass;
     int count;
+    int target;
+    int hardDay;
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    int wordToday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,44 @@ public class NotificationActivity extends AppCompatActivity {
         pass = intent.getBooleanExtra("pass",true);
         count = intent.getIntExtra("count",10);
 
-        if(pass){
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("wordToday")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        wordToday = snapshot.getValue(Integer.class);
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("hardDay")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        hardDay = snapshot.getValue(Integer.class);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+
+        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("target")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        target = snapshot.getValue(Integer.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        if(pass){
             notificationText.setText("Chúc mừng bạn đã học được một từ mới");
             mbutton.setText("Tiếp tục học từ mới");
             newWordText.setVisibility(View.VISIBLE);
@@ -53,6 +93,7 @@ public class NotificationActivity extends AppCompatActivity {
             });
             FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .child("countLearnedWord").setValue(count+1);
+
         }else {
             notificationText.setText("Bạn đã làm sai 1 số câu hỏi, bạn sẽ phải học lại từ này :((");
             mbutton.setText("Học lại");
@@ -61,6 +102,14 @@ public class NotificationActivity extends AppCompatActivity {
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(pass){
+                    if(wordToday+1 == target){
+                        FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                .child("hardDay").setValue(hardDay + 1);
+                    }
+                    FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child("wordToday").setValue(wordToday + 1);
+                }
                 Intent intent = new Intent(NotificationActivity.this,MainActivity.class);
                 startActivity(intent);
             }
