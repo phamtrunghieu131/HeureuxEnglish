@@ -1,4 +1,4 @@
-package com.example.heureuxenglish;
+gpackage com.example.heureuxenglish;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

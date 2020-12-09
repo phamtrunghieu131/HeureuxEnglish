@@ -23,9 +23,10 @@ import java.util.ArrayList;
 
 public class FragmentProfile extends Fragment {
     
-    TextView learnedWordText,pointText,levelText,hardDayText,nameText;
+    TextView learnedWordText,pointText,levelText,hardDayText,nameText,pointToUplvText,nextLvText;
     DatabaseReference mDatabase;
-    ArrayList<Word> words = new ArrayList<Word>();
+    int currentPoint;
+    ContentLoadingProgressBar progressBar;
 
     @Nullable
     @Override
@@ -37,35 +38,27 @@ public class FragmentProfile extends Fragment {
         levelText = view.findViewById(R.id.level);
         hardDayText = view.findViewById(R.id.hardDay);
         nameText = view.findViewById(R.id.name);
+        pointToUplvText = view.findViewById(R.id.pointToUpLv);
+        nextLvText = view.findViewById(R.id.nextLv);
+        progressBar = view.findViewById(R.id.expProgressBar);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("learnedWords")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            for(DataSnapshot postSnapshot : snapshot.getChildren()){
-                                Word word = postSnapshot.getValue(Word.class);
-                                words.add(word);
-                            }
-                        }
-                        learnedWordText.setText(words.size()+"");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
 
         mDatabase.child("user").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(User.class);
+                currentPoint = user.getPoint();
+                int level = currentPoint/100;
+                int pointToUpLv = level*100+100-currentPoint;
+                learnedWordText.setText(user.getCountLearnedWord()+"");
                 nameText.setText(user.getName());
-                pointText.setText(user.getPoint()+"");
-                levelText.setText(user.getLevel()+"");
+                pointText.setText(currentPoint+"");
+                levelText.setText(level + "");
                 hardDayText.setText(user.getHardDay()+"");
+                pointToUplvText.setText(pointToUpLv+"");
+                nextLvText.setText(level+1+"");
+                progressBar.setProgress(100-pointToUpLv);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

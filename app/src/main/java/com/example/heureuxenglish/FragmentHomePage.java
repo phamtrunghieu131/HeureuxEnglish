@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.app.Fragment;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ import java.util.Random;
 
 public class FragmentHomePage extends Fragment {
 
-    TextView learnWordText,practiceText;
+    ImageView learnWordImg, practiceImg;
     int count;
     Random random = new Random();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -34,8 +35,8 @@ public class FragmentHomePage extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage,container,false);
 
-        learnWordText = view.findViewById(R.id.hoc_tu_moi_text_view);
-        practiceText = view.findViewById(R.id.on_tap_text_view);
+        learnWordImg = view.findViewById(R.id.hoc_tu_moi);
+        practiceImg = view.findViewById(R.id.on_tap);
 
         mDatabase.child("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("countLearnedWord")
                 .addValueEventListener(new ValueEventListener() {
@@ -50,7 +51,7 @@ public class FragmentHomePage extends Fragment {
                     }
                 });
 
-        learnWordText.setOnClickListener(new View.OnClickListener() {
+        learnWordImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),NewWordActivity.class);
@@ -58,7 +59,7 @@ public class FragmentHomePage extends Fragment {
             }
         });
 
-        practiceText.setOnClickListener(new View.OnClickListener() {
+        practiceImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(count != 0) {
