@@ -20,7 +20,8 @@
             android:layout_centerInParent="true"
             android:text="Chọn đáp án đúng"
             android:textSize="30sp"
-            android:textColor="@color/black">
+            android:textColor="@color/black"
+            android:textStyle="bold">
         </TextView>
     </RelativeLayout>
 

@@ -22,8 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class QuestionTwoActivity extends AppCompatActivity {
 
-    TextView englishText,resultText;
-    EditText vietnameseText;
+    TextView vietnameseText,resultText;
+    EditText englishText;
     Button mButton;
     boolean pass;
     int count;
@@ -47,8 +47,8 @@ public class QuestionTwoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Word word = snapshot.getValue(Word.class);
-                englishText.setText(word.getExampleInEnglish());
-                resultText.setText(word.getExampleInVietnamese());
+                vietnameseText.setText(word.getExampleInVietnamese());
+                resultText.setText(word.getExampleInEnglish());
             }
 
             @Override
@@ -73,15 +73,15 @@ public class QuestionTwoActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String input = vietnameseText.getText().toString().toLowerCase();
+                String input = englishText.getText().toString().toLowerCase();
                 String result = resultText.getText().toString().toLowerCase();
                 if(input.equals(result)){
-                    vietnameseText.setTextColor(Color.GREEN);
+                    englishText.setTextColor(Color.GREEN);
                     FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child("point").setValue(currentPoint+10);
                 }
                 else{
-                    vietnameseText.setTextColor(Color.RED);
+                    englishText.setTextColor(Color.RED);
                     resultText.setVisibility(View.VISIBLE);
                     pass = false;
                 }
@@ -104,9 +104,9 @@ public class QuestionTwoActivity extends AppCompatActivity {
     }
 
     private void creat() {
-        englishText = findViewById(R.id.textView10);
+        vietnameseText = findViewById(R.id.textView10);
         resultText = findViewById(R.id.resultText);
-        vietnameseText = findViewById(R.id.editText);
+        englishText = findViewById(R.id.editText);
         mButton = findViewById(R.id.confirm_questionTwo_dsmButton);
     }
 }

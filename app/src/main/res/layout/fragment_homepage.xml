@@ -25,11 +25,12 @@
             app:layout_constraintTop_toTopOf="parent"
             />
         <TextView
+            android:id="@+id/currentLearnedWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:layout_marginLeft="10dp"
-            android:text="5/15"
+            android:text="5"
             android:textColor="@color/white"
             android:textSize="25sp"
             app:layout_constraintStart_toEndOf="@id/chi_tieu_text_view"
@@ -46,6 +47,18 @@
             android:progress="50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/maxTarget_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="/ 15"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@+id/currentLearnedWord"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -214,6 +227,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@+id/thong_bao_text_view"
                 app:layout_constraintTop_toBottomOf="@+id/thong_bao_text_view"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

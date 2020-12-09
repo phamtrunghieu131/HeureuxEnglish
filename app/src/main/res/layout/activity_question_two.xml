@@ -20,7 +20,8 @@
             android:layout_centerInParent="true"
             android:text="Viết lại câu bằng tiếng anh"
             android:textSize="30sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
     <TextView
